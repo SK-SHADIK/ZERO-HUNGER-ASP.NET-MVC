@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }
+    <h4>You Are Login As</h4>
+    <h5 class="text-success">@Session["Name"]</h5>
+    <a href="/Login/Index" class="btn btn-danger">LOG OUT</a>
+    <h5 class="text-center">STATUS DETAILS</h5>
+    <a href="/Status/Create" class="btn btn-info">ADD A Status</a>
+
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Status Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var st in Model)
+            {
+                <tr>
+
+                    <td>@st.Id</td>
+                    <td>@st.Status1</td>
+                    <td><a href="/Status/Edit/@st.Id" class="btn btn-info">Edit</a></td>
+                    <td><a href="/Status/Delete/@st.Id" class="btn btn-info">Delete</a></td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistributorId" Type="int" Nullable="false" />
+          <Property Name="DistributionPlaceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Delivary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RestaurantAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="DistributionPlace" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="DistributorName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Distribution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistributionPlace" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FoodId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DistributionPlace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Distributor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dob" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dob" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RestaurantAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Foods">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RottenTime" Type="datetime" Nullable="false" />
+          <Property Name="LastTimeForCollect" Type="datetime" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Restaurants">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Assign_Distribution_place">
+          <End Role="DistributionPlace" Type="Self.DistributionPlace" Multiplicity="1" />
+          <End Role="Assign" Type="Self.Assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DistributionPlace">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Assign">
+              <PropertyRef Name="DistributionPlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assign_Distributor">
+          <End Role="Distributor" Type="Self.Distributor" Multiplicity="1" />
+          <End Role="Assign" Type="Self.Assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distributor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Assign">
+              <PropertyRef Name="DistributorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribution_Foods">
+          <End Role="Foods" Type="Self.Foods" Multiplicity="1" />
+          <End Role="Distribution" Type="Self.Distribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foods">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Distribution">
+              <PropertyRef Name="FoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodDetails_FoodDetails">
+          <End Role="FoodDetails" Type="Self.FoodDetails" Multiplicity="1" />
+          <End Role="FoodDetails1" Type="Self.FoodDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FoodDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodDetails1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Assign" EntityType="Self.Assign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Delivary" EntityType="Self.Delivary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distribution" EntityType="Self.Distribution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DistributionPlace" EntityType="Self.DistributionPlace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distributor" EntityType="Self.Distributor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodDetails" EntityType="Self.FoodDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Foods" EntityType="Self.Foods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Assign_Distribution_place" Association="Self.FK_Assign_Distribution_place">
+            <End Role="DistributionPlace" EntitySet="DistributionPlace" />
+            <End Role="Assign" EntitySet="Assign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assign_Distributor" Association="Self.FK_Assign_Distributor">
+            <End Role="Distributor" EntitySet="Distributor" />
+            <End Role="Assign" EntitySet="Assign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribution_Foods" Association="Self.FK_Distribution_Foods">
+            <End Role="Foods" EntitySet="Foods" />
+            <End Role="Distribution" EntitySet="Distribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodDetails_FoodDetails" Association="Self.FK_FoodDetails_FoodDetails">
+            <End Role="FoodDetails" EntitySet="FoodDetails" />
+            <End Role="FoodDetails1" EntitySet="FoodDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Assign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistributorId" Type="Int32" Nullable="false" />
+          <Property Name="DistributionPlaceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DistributionPlace" Relationship="Self.FK_Assign_Distribution_place" FromRole="Assign" ToRole="DistributionPlace" />
+          <NavigationProperty Name="Distributor" Relationship="Self.FK_Assign_Distributor" FromRole="Assign" ToRole="Distributor" />
+        </EntityType>
+        <EntityType Name="Distribution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistributionPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FoodId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_Distribution_Foods" FromRole="Distribution" ToRole="Foods" />
+        </EntityType>
+        <EntityType Name="DistributionPlace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Assigns" Relationship="Self.FK_Assign_Distribution_place" FromRole="DistributionPlace" ToRole="Assign" />
+        </EntityType>
+        <EntityType Name="Distributor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Assigns" Relationship="Self.FK_Assign_Distributor" FromRole="Distributor" ToRole="Assign" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="FoodDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RestaurantAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodDetails1" Relationship="Self.FK_FoodDetails_FoodDetails" FromRole="FoodDetails" ToRole="FoodDetails1" />
+          <NavigationProperty Name="FoodDetail1" Relationship="Self.FK_FoodDetails_FoodDetails" FromRole="FoodDetails1" ToRole="FoodDetails" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RottenTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastTimeForCollect" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Distributions" Relationship="Self.FK_Distribution_Foods" FromRole="Foods" ToRole="Distribution" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Assign_Distribution_place">
+          <End Role="DistributionPlace" Type="Self.DistributionPlace" Multiplicity="1" />
+          <End Role="Assign" Type="Self.Assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DistributionPlace">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Assign">
+              <PropertyRef Name="DistributionPlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assign_Distributor">
+          <End Role="Distributor" Type="Self.Distributor" Multiplicity="1" />
+          <End Role="Assign" Type="Self.Assign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distributor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Assign">
+              <PropertyRef Name="DistributorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribution_Foods">
+          <End Role="Foods" Type="Self.Food" Multiplicity="1" />
+          <End Role="Distribution" Type="Self.Distribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foods">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Distribution">
+              <PropertyRef Name="FoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodDetails_FoodDetails">
+          <End Role="FoodDetails" Type="Self.FoodDetail" Multiplicity="1" />
+          <End Role="FoodDetails1" Type="Self.FoodDetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FoodDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodDetails1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Zero_HungerEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assigns" EntityType="Self.Assign" />
+          <EntitySet Name="Distributions" EntityType="Self.Distribution" />
+          <EntitySet Name="DistributionPlaces" EntityType="Self.DistributionPlace" />
+          <EntitySet Name="Distributors" EntityType="Self.Distributor" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="FoodDetails" EntityType="Self.FoodDetail" />
+          <EntitySet Name="Foods" EntityType="Self.Food" />
+          <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <AssociationSet Name="FK_Assign_Distribution_place" Association="Self.FK_Assign_Distribution_place">
+            <End Role="DistributionPlace" EntitySet="DistributionPlaces" />
+            <End Role="Assign" EntitySet="Assigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assign_Distributor" Association="Self.FK_Assign_Distributor">
+            <End Role="Distributor" EntitySet="Distributors" />
+            <End Role="Assign" EntitySet="Assigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribution_Foods" Association="Self.FK_Distribution_Foods">
+            <End Role="Foods" EntitySet="Foods" />
+            <End Role="Distribution" EntitySet="Distributions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodDetails_FoodDetails" Association="Self.FK_FoodDetails_FoodDetails">
+            <End Role="FoodDetails" EntitySet="FoodDetails" />
+            <End Role="FoodDetails1" EntitySet="FoodDetails" />
+          </AssociationSet>
+          <EntitySet Name="Delivaries" EntityType="Model.Delivary" />
+        </EntityContainer>
+        <EntityType Name="Delivary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RestaurantAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="DistributionPlace" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DistributorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Zero_HungerEntities1">
+          <EntitySetMapping Name="Assigns">
+            <EntityTypeMapping TypeName="Model.Assign">
+              <MappingFragment StoreEntitySet="Assign">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DistributorId" ColumnName="DistributorId" />
+                <ScalarProperty Name="DistributionPlaceId" ColumnName="DistributionPlaceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distributions">
+            <EntityTypeMapping TypeName="Model.Distribution">
+              <MappingFragment StoreEntitySet="Distribution">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DistributionPlace" ColumnName="DistributionPlace" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DistributionPlaces">
+            <EntityTypeMapping TypeName="Model.DistributionPlace">
+              <MappingFragment StoreEntitySet="DistributionPlace">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distributors">
+            <EntityTypeMapping TypeName="Model.Distributor">
+              <MappingFragment StoreEntitySet="Distributor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodDetails">
+            <EntityTypeMapping TypeName="Model.FoodDetail">
+              <MappingFragment StoreEntitySet="FoodDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="RestaurantAddress" ColumnName="RestaurantAddress" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foods">
+            <EntityTypeMapping TypeName="Model.Food">
+              <MappingFragment StoreEntitySet="Foods">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RottenTime" ColumnName="RottenTime" />
+                <ScalarProperty Name="LastTimeForCollect" ColumnName="LastTimeForCollect" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurants">
+            <EntityTypeMapping TypeName="Model.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurants">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="Model.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Status1" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Delivaries">
+            <EntityTypeMapping TypeName="Model.Delivary">
+              <MappingFragment StoreEntitySet="Delivary">
+                <ScalarProperty Name="DistributorName" ColumnName="DistributorName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DistributionPlace" ColumnName="DistributionPlace" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="RestaurantAddress" ColumnName="RestaurantAddress" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

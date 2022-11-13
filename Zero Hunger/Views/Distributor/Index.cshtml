@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }
+    <h4>You Are Login As</h4>
+    <h5 class="text-success">@Session["Name"]</h5>
+    <a href="/Login/Index" class="btn btn-danger">LOG OUT</a>
+
+    <h2 class="text-center">DISTRIBUTOR DETAILS</h2>
+    <a href="/Distributor/Create" class="btn btn-info">ADD A DISTRIBUTOR</a>
+
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">PHONE</th>
+                <th scope="col">PASSWORD</th>
+                <th scope="col">DATE OF BIRTH</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dis in Model)
+            {
+                <tr>
+
+                    <td>@dis.Id</td>
+                    <td>@dis.Name</td>
+                    <td>@dis.Email</td>
+                    <td>@dis.Phone</td>
+                    <td>@dis.Password</td>
+                    <td>@dis.Dob</td>
+                    <td><a href="/Distributor/Edit/@dis.Id" class="btn btn-info">Edit</a></td>
+                    <td><a href="/Distributor/Delete/@dis.Id" class="btn btn-info">Delete</a></td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+</body>
+</html>

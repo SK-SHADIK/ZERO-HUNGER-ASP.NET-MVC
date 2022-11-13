@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Zero_Hunger.Models.FoodModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Show Food</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }
+    <h4>You Are Login As</h4>
+    <h5 class="text-success">@Session["Name"]</h5>
+    <a href="/Login/Index" class="btn btn-danger">LOG OUT</a>
+
+    <h2 class="text-center">SHOW FOOD</h2>
+
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">FOOD NAME</th>
+                <th scope="col">ROTTENT TIME</th>
+                <th scope="col">LAST TIME FOR COLLECT</th>
+                <th scope="col">QUANTITY</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int x = 0;
+            }
+
+            @foreach (var item in Model)
+            {
+                x += item.Qty;
+
+            <tr>
+
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.RottenTime</td>
+                <td>@item.LastTimeForCollect</td>
+                <td>@item.Qty</td>
+                <td></td>
+            </tr>
+
+
+            }
+
+        </tbody>
+    </table>
+    <form action="/Food/Checkout" method="post">
+        <input type="hidden" value="@Session["Name"]" name="RestaurantName" />
+        <input type="hidden" value="@Session["Address"]" name="RestaurantAddress" />
+        <input type="hidden" value="@x" name="Qty" />
+        <input type="submit" value="Check Out" class="btn btn-danger" />
+    </form>
+
+</body>
+</html>

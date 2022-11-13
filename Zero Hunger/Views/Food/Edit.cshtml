@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+<body>
+    <h3 class="text-center">EDIT FOOD</h3>
+
+    <form action="" method="post">
+        <div class="form-group">
+            <input type="hidden" name="Id" value="@Model.Id" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">Name</label>
+            <input type="text" name="Name" value="@Model.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">ROTTEN TIME</label>
+            <input type="text" name="RottenTime" value="@Model.RottenTime" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput3">LAST TIME FOR COLLECT FOOD</label>
+            <input type="text" name="LastTimeForCollect" value="@Model.LastTimeForCollect" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput4">QUANTITY</label>
+            <input type="text" name="Qty" value="@Model.Qty" class="form-control" />
+        </div>
+        <input type="submit" value="Edit" class="btn btn-outline-success" />
+        <a href="/Food/Index" class="btn btn-danger">Back</a>
+    </form>
+</body>
+</html>

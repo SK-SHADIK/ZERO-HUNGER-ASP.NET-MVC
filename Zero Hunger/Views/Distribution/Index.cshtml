@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }
+    <h4>You Are Login As</h4>
+    <h5 class="text-success">@Session["Name"]</h5>
+    <a href="/Login/Index" class="btn btn-danger">LOG OUT</a>
+
+    <h2 class="text-center">DISTRIBUTION DETAILS</h2>
+
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">RESTAURANT NAME</th>
+                <th scope="col">RESTAURANT ADDRESS</th>
+                <th scope="col">TOTAL ITEAM</th>
+                <th>Distributor Name</th>
+                <th>Distribution Place</th>
+                <th>Status</th>
+                <th>ASSIGN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form action="/Distribution/Assign" method="post">
+
+                @foreach (var food in Model)
+                {
+
+
+                <tr>
+                    <td>@food.RestaurantName</td>
+                    <td>@food.RestaurantAddress</td>
+                    <td>@food.Qty</td>
+                    <td>
+                        <select name="DistributorName">
+                            @foreach (var dis in @ViewBag.Distributor)
+                            {
+                                <option value=@dis.Name>@dis.Name</option>
+
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <select name="DistributionPlace">
+                            @foreach (var dp in @ViewBag.DistributePlace)
+                            {
+                                <option value=@dp.Name>@dp.Name</option>
+
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <select name="Status">
+                            @foreach (var st in @ViewBag.Status)
+                            {
+                                <option value=@st.Status1>@st.Status1</option>
+
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" value="@food.Id" name="Id" />
+                        <input type="hidden" value="@food.RestaurantName" name="RestaurantName" />
+                        <input type="hidden" value="@food.RestaurantAddress" name="RestaurantAddress" />
+                        <input type="hidden" value="@food.Qty" name="Qty" />
+                        <input type="submit" value="Assign A Distributor" class="btn btn-success" />
+
+                    </td>
+                    @*<td><a href="/Distribution/Assign/@food.Id" class="btn btn-info">Assign Distributor</a></td>*@
+                </tr>
+            }
+                </form>
+
+            </tbody>
+        </table>
+
+
+    </body>
+</html>

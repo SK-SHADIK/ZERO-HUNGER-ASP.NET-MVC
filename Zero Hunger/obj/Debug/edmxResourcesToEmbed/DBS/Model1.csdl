@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Assign">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DistributorId" Type="Int32" Nullable="false" />
+    <Property Name="DistributionPlaceId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DistributionPlace" Relationship="Self.FK_Assign_Distribution_place" FromRole="Assign" ToRole="DistributionPlace" />
+    <NavigationProperty Name="Distributor" Relationship="Self.FK_Assign_Distributor" FromRole="Assign" ToRole="Distributor" />
+  </EntityType>
+  <EntityType Name="Distribution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DistributionPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FoodId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Food" Relationship="Self.FK_Distribution_Foods" FromRole="Distribution" ToRole="Foods" />
+  </EntityType>
+  <EntityType Name="DistributionPlace">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Assigns" Relationship="Self.FK_Assign_Distribution_place" FromRole="DistributionPlace" ToRole="Assign" />
+  </EntityType>
+  <EntityType Name="Distributor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dob" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Assigns" Relationship="Self.FK_Assign_Distributor" FromRole="Distributor" ToRole="Assign" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dob" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="FoodDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RestaurantName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RestaurantAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Qty" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FoodDetails1" Relationship="Self.FK_FoodDetails_FoodDetails" FromRole="FoodDetails" ToRole="FoodDetails1" />
+    <NavigationProperty Name="FoodDetail1" Relationship="Self.FK_FoodDetails_FoodDetails" FromRole="FoodDetails1" ToRole="FoodDetails" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RottenTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastTimeForCollect" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Qty" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Distributions" Relationship="Self.FK_Distribution_Foods" FromRole="Foods" ToRole="Distribution" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Assign_Distribution_place">
+    <End Role="DistributionPlace" Type="Self.DistributionPlace" Multiplicity="1" />
+    <End Role="Assign" Type="Self.Assign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DistributionPlace">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assign">
+        <PropertyRef Name="DistributionPlaceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assign_Distributor">
+    <End Role="Distributor" Type="Self.Distributor" Multiplicity="1" />
+    <End Role="Assign" Type="Self.Assign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Distributor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assign">
+        <PropertyRef Name="DistributorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Distribution_Foods">
+    <End Role="Foods" Type="Self.Food" Multiplicity="1" />
+    <End Role="Distribution" Type="Self.Distribution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Foods">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Distribution">
+        <PropertyRef Name="FoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FoodDetails_FoodDetails">
+    <End Role="FoodDetails" Type="Self.FoodDetail" Multiplicity="1" />
+    <End Role="FoodDetails1" Type="Self.FoodDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="FoodDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodDetails1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Zero_HungerEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Assigns" EntityType="Self.Assign" />
+    <EntitySet Name="Distributions" EntityType="Self.Distribution" />
+    <EntitySet Name="DistributionPlaces" EntityType="Self.DistributionPlace" />
+    <EntitySet Name="Distributors" EntityType="Self.Distributor" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="FoodDetails" EntityType="Self.FoodDetail" />
+    <EntitySet Name="Foods" EntityType="Self.Food" />
+    <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <AssociationSet Name="FK_Assign_Distribution_place" Association="Self.FK_Assign_Distribution_place">
+      <End Role="DistributionPlace" EntitySet="DistributionPlaces" />
+      <End Role="Assign" EntitySet="Assigns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assign_Distributor" Association="Self.FK_Assign_Distributor">
+      <End Role="Distributor" EntitySet="Distributors" />
+      <End Role="Assign" EntitySet="Assigns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Distribution_Foods" Association="Self.FK_Distribution_Foods">
+      <End Role="Foods" EntitySet="Foods" />
+      <End Role="Distribution" EntitySet="Distributions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FoodDetails_FoodDetails" Association="Self.FK_FoodDetails_FoodDetails">
+      <End Role="FoodDetails" EntitySet="FoodDetails" />
+      <End Role="FoodDetails1" EntitySet="FoodDetails" />
+    </AssociationSet>
+    <EntitySet Name="Delivaries" EntityType="Model.Delivary" />
+  </EntityContainer>
+  <EntityType Name="Delivary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RestaurantAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Qty" Type="Int32" Nullable="false" />
+    <Property Name="DistributionPlace" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DistributorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>
